@@ -1,6 +1,5 @@
 import { AntDesign, Feather } from "@expo/vector-icons";
 import { Link, router } from "expo-router";
-import { useState } from "react";
 import {
   KeyboardAvoidingView,
   Pressable,
@@ -10,8 +9,7 @@ import {
 } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
-const LoginScreen = () => {
-  const [showPassword, setShowPassword] = useState(false);
+const ForgetPasswordScreen = () => {
   const { top, bottom } = useSafeAreaInsets();
   return (
     <KeyboardAvoidingView className="flex-1 bg-background" behavior="padding">
@@ -28,8 +26,11 @@ const LoginScreen = () => {
 
         <View className=" justify-center gap-8">
           <View className="text-start gap-2">
-            <Text className="font-bold text-2xl">Entrar</Text>
-            <Text className="text-lg tracking-wide">Acesse sua conta</Text>
+            <Text className="font-bold text-2xl">Esqueci minha Senha</Text>
+            <Text className="text-lg tracking-wide">
+              Digite seu e-mail e enviaremos um código de 6 dígitos para
+              redifinir sua senha
+            </Text>
           </View>
 
           <View className="gap-2">
@@ -44,41 +45,20 @@ const LoginScreen = () => {
               autoCorrect={false}
             />
           </View>
-          <View className="gap-2">
-            <View className="flex-row items-center gap-2">
-              <Feather name="lock" size={20} color={"#7BB8F5"} />
-              <Text className="font-semibold text-lg">Senha</Text>
-            </View>
-            <View>
-              <TextInput
-                secureTextEntry={!showPassword}
-                placeholder="•••••••••"
-                className="border rounded-md px-4 h-16 text-base border-slate-300 relative placeholder:tracking-wider"
-                autoCorrect={false}
-              />
 
-              <Pressable>
-                <Feather
-                  name={showPassword ? "eye" : "eye-off"}
-                  size={20}
-                  color={"#7BB8F5"}
-                  className="absolute -top-[2.6rem] right-4"
-                  onPress={() => setShowPassword(!showPassword)}
-                />
-              </Pressable>
-            </View>
+          <View className="border border-slate-300 p-4 rounded-md gap-2">
+            <Text className="text-lg">💡 Dica de Segurança</Text>
+            <Text className="text-lg text-slate-500">
+              Certifique-se de usar o mesmo e-mail que você cadastrou na sua
+              conta.
+            </Text>
           </View>
-          <Link href={"/forgetPassword"} asChild>
-            <Pressable className="active:scale-95">
-              <Text className="text-slate-500 text-lg underline">
-                Esqueci minha senha
-              </Text>
-            </Pressable>
-          </Link>
 
-          <Link href={"/home"} asChild>
-            <Pressable className="bg-primary mt-4 h-16 rounded-2xl items-center justify-center active:scale-95">
-              <Text className="text-white font-bold text-lg">Entrar</Text>
+          <Link href={"/confirmSentCode"} asChild>
+            <Pressable className="bg-primary h-16 rounded-2xl items-center justify-center active:scale-95">
+              <Text className="text-white font-bold text-lg">
+                Enviar Código de Verificação
+              </Text>
             </Pressable>
           </Link>
           <View className="flex-row items-center gap-4 -mt-4">
@@ -101,4 +81,4 @@ const LoginScreen = () => {
   );
 };
 
-export default LoginScreen;
+export default ForgetPasswordScreen;
