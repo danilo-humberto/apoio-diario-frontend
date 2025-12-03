@@ -1,11 +1,15 @@
 import { Feather } from "@expo/vector-icons";
 import { Link } from "expo-router";
+import { useLocalSearchParams } from "expo-router/build/hooks";
 import React from "react";
 import { Pressable, Text, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
+type Params = { email?: string };
+
 const ConfirmSentCodeScreen = () => {
   const { top, bottom } = useSafeAreaInsets();
+  const params = useLocalSearchParams<Params>();
   return (
     <View
       className="flex-1 items-center justify-center bg-green-50 gap-4 px-6"
@@ -16,8 +20,9 @@ const ConfirmSentCodeScreen = () => {
       </View>
 
       <Text className="font-semibold text-2xl">Código Enviado!</Text>
-      <Text className="text-lg text-slate-500">
-        Enviamos um código de 6 dígitos para ...
+      <Text className="text-lg text-slate-500 text-center">
+        Enviamos um código de 6 dígitos para{" "}
+        <Text className="font-semibold text-black">{params.email}</Text>
       </Text>
 
       <View className="bg-white py-4 px-6 items-center rounded-xl shadow-black shadow-md gap-2">

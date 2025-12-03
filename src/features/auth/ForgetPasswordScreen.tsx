@@ -1,5 +1,6 @@
 import { AntDesign, Feather } from "@expo/vector-icons";
 import { Link, router } from "expo-router";
+import { useState } from "react";
 import {
   KeyboardAvoidingView,
   Pressable,
@@ -11,6 +12,14 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 const ForgetPasswordScreen = () => {
   const { top, bottom } = useSafeAreaInsets();
+  const [email, setEmail] = useState("");
+
+  const handleSend = () => {
+    router.push({
+      pathname: "/confirmSentCode",
+      params: { email },
+    });
+  };
   return (
     <KeyboardAvoidingView className="flex-1 bg-background" behavior="padding">
       <View
@@ -43,6 +52,8 @@ const ForgetPasswordScreen = () => {
               placeholder="seu@email.com"
               className="border rounded-md px-4 h-16 text-base border-slate-300"
               autoCorrect={false}
+              value={email}
+              onChangeText={setEmail}
             />
           </View>
 
@@ -54,13 +65,14 @@ const ForgetPasswordScreen = () => {
             </Text>
           </View>
 
-          <Link href={"/confirmSentCode"} asChild>
-            <Pressable className="bg-primary h-16 rounded-2xl items-center justify-center active:scale-95">
-              <Text className="text-white font-bold text-lg">
-                Enviar Código de Verificação
-              </Text>
-            </Pressable>
-          </Link>
+          <Pressable
+            className="bg-primary h-16 rounded-2xl items-center justify-center active:scale-95"
+            onPress={handleSend}
+          >
+            <Text className="text-white font-bold text-lg">
+              Enviar Código de Verificação
+            </Text>
+          </Pressable>
           <View className="flex-row items-center gap-4 -mt-4">
             <View className="h-1 flex-1 bg-slate-200 rounded-full"></View>
             <Text>OU</Text>
