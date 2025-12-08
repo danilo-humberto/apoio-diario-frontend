@@ -1,6 +1,7 @@
+import { useResetPasswordMutation } from "@/src/hooks/useAuthMutations";
 import { AntDesign, Feather } from "@expo/vector-icons";
-import { Link, router } from "expo-router";
-import React, { useState } from "react";
+import { router, useLocalSearchParams } from "expo-router";
+import React, { useMemo, useState } from "react";
 import {
   KeyboardAvoidingView,
   Pressable,
@@ -13,10 +14,62 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 const PutNewPasswordScreen = () => {
   const { top, bottom } = useSafeAreaInsets();
+  const params = useLocalSearchParams<{ email: string; code: string }>();
+  const email = String(params?.email);
+  const code = String(params?.code);
+
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [localError, setLocalError] = useState("");
+
+  const resetMutation = useResetPasswordMutation();
+
+  const isPasswordLongEnough = password.length >= 6;
+  const isPasswordMatch = password === confirmPassword && password.length > 1;
+
+  const canSubmit = useMemo(() => {
+    return (
+      email.length > 0 &&
+      code.length > 0 &&
+      isPasswordLongEnough &&
+      isPasswordMatch &&
+      !resetMutation.isPending
+    );
+  }, [
+    email,
+    code,
+    isPasswordLongEnough,
+    isPasswordMatch,
+    resetMutation.isPending,
+  ]);
+
+  const handleReset = () => {
+    if (password !== confirmPassword) {
+      setLocalError("As senhas devem ser iguais.");
+      return;
+    }
+
+    if (password.length < 6) {
+      setLocalError("A senha deve ter pelo menos 6 caracteres.");
+      return;
+    }
+    setLocalError("");
+
+    resetMutation.mutate(
+      { email, code, password },
+      {
+        onSuccess: () => {
+          router.push({ pathname: "/login" });
+        },
+        onError: (err: any) => {
+          const msg = err?.response?.data?.message || err?.message;
+          setLocalError(msg);
+        },
+      }
+    );
+  };
   return (
     <KeyboardAvoidingView className="flex-1 bg-background" behavior="padding">
       <ScrollView
@@ -101,26 +154,32 @@ const PutNewPasswordScreen = () => {
               <Text className="text-lg">✅ Sua senha deve ter:</Text>
               <View className="gap-2">
                 <Text
-                  className={`${password.length >= 6 ? "text-green-600" : ""}`}
+                  className={`${isPasswordLongEnough ? "text-green-600" : ""}`}
                 >
-                  Pelo menos 6 caracteres {password.length >= 6 && "✅"}
+                  Pelo menos 6 caracteres {isPasswordLongEnough && "✅"}
                 </Text>
-                <Text
-                  className={`${password === confirmPassword && password.length > 1 ? "text-green-600" : ""}`}
-                >
-                  As senhas coincidem{" "}
-                  {password === confirmPassword && password.length > 1 && "✅"}
+                <Text className={`${isPasswordMatch ? "text-green-600" : ""}`}>
+                  As senhas coincidem {isPasswordMatch && "✅"}
                 </Text>
               </View>
             </View>
 
-            <Link href={"/home"} asChild>
-              <Pressable className="bg-primary h-16 rounded-2xl items-center justify-center active:scale-95">
-                <Text className="text-white font-bold text-lg">
-                  Redefinir Senha
-                </Text>
-              </Pressable>
-            </Link>
+            <Pressable
+              className="bg-primary h-16 rounded-2xl items-center justify-center active:scale-95"
+              onPress={handleReset}
+              disabled={!canSubmit}
+              style={{ opacity: canSubmit ? 1 : 0.6 }}
+            >
+              <Text className="text-white font-bold text-lg">
+                {resetMutation.isPending ? "Redefinindo..." : "Redefinir Senha"}
+              </Text>
+            </Pressable>
+
+            {localError && (
+              <Text className="text-red-500 text-center -mt-2">
+                {localError}
+              </Text>
+            )}
           </View>
         </View>
       </ScrollView>

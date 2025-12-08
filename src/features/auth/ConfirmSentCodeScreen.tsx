@@ -1,5 +1,5 @@
 import { Feather } from "@expo/vector-icons";
-import { Link } from "expo-router";
+import { Link, router } from "expo-router";
 import { useLocalSearchParams } from "expo-router/build/hooks";
 import React from "react";
 import { Pressable, Text, View } from "react-native";
@@ -33,11 +33,17 @@ const ConfirmSentCodeScreen = () => {
         </Text>
       </View>
 
-      <Link href={"/putRecoveryCode"} asChild>
-        <Pressable className="bg-primary h-16 rounded-2xl mt-4 w-full items-center justify-center active:scale-95">
-          <Text className="text-white font-bold text-lg">Inserir Código</Text>
-        </Pressable>
-      </Link>
+      <Pressable
+        className="bg-primary h-16 rounded-2xl mt-4 w-full items-center justify-center active:scale-95"
+        onPress={() =>
+          router.push({
+            pathname: "/putRecoveryCode",
+            params: { email: params.email },
+          })
+        }
+      >
+        <Text className="text-white font-bold text-lg">Inserir Código</Text>
+      </Pressable>
 
       <Link
         href={"/forgetPassword"}

@@ -1,3 +1,4 @@
+import { useForgotPasswordMutation } from "@/src/hooks/useAuthMutations";
 import { AntDesign, Feather } from "@expo/vector-icons";
 import { Link, router } from "expo-router";
 import { useState } from "react";
@@ -13,11 +14,23 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 const ForgetPasswordScreen = () => {
   const { top, bottom } = useSafeAreaInsets();
   const [email, setEmail] = useState("");
+  const forgotMutation = useForgotPasswordMutation();
 
   const handleSend = () => {
-    router.push({
-      pathname: "/confirmSentCode",
-      params: { email },
+    if (!email.trim()) return;
+    forgotMutation.mutate(email, {
+      onSuccess: () => {
+        router.push({
+          pathname: "/confirmSentCode",
+          params: { email },
+        });
+      },
+      onError: (err: any) => {
+        console.warn(
+          "Erro ao enviar código:",
+          err?.response?.data?.message || err.message
+        );
+      },
     });
   };
   return (
@@ -68,11 +81,20 @@ const ForgetPasswordScreen = () => {
           <Pressable
             className="bg-primary h-16 rounded-2xl items-center justify-center active:scale-95"
             onPress={handleSend}
+            disabled={forgotMutation.isPending}
+            style={{ opacity: forgotMutation.isPending ? 0.6 : 1 }}
           >
             <Text className="text-white font-bold text-lg">
-              Enviar Código de Verificação
+              {forgotMutation.isPending
+                ? "Enviando..."
+                : "Enviar Código de Verificação"}
             </Text>
           </Pressable>
+          {forgotMutation.isError && (
+            <Text className="text-red-500 text-center -mt-2">
+              Erro ao enviar o código
+            </Text>
+          )}
           <View className="flex-row items-center gap-4 -mt-4">
             <View className="h-1 flex-1 bg-slate-200 rounded-full"></View>
             <Text>OU</Text>

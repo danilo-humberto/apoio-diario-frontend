@@ -22,6 +22,28 @@ export const registerRequest = async (payload: {
   return response.data;
 };
 
+export const forgotPasswordRequest = async (email: string) => {
+  const response = await api.post("/auth/forgot-password", { email });
+  return response.data;
+};
+
+export const resetPasswordRequest = async (payload: {
+  email: string;
+  code: string;
+  password: string;
+}) => {
+  const response = await api.post("/auth/reset-password", payload);
+  return response.data;
+};
+
+export const verifyResetTokenRequest = async (email: string, code: string) => {
+  const response = await api.post("/auth/validate-reset-token", {
+    email,
+    code,
+  });
+  return response.data;
+};
+
 export const storeTokens = async (tokens: Tokens) => {
   await SecureStore.setItemAsync(
     tokenStorageKeys.accessToken,
