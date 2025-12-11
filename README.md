@@ -1,50 +1,75 @@
-# Welcome to your Expo app 👋
+# Apoio‑Diario‑FrontEnd
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+Front‑end do **Apoio Diário** — aplicativo móvel feito com **React Native + Expo**. Este README explica, passo a passo, 
 
-## Get started
+Repositório Back: `https://github.com/feliixjuliana/Apoio-Diario-BackEnd`
 
-1. Install dependencies
+---
 
-   ```bash
-   npm install
-   ```
+## ✅ Resumo rápido
 
-2. Start the app
+* Roda com: `npm start`
+* É necessário ter o **app Expo Go** instalado no celular.
+* **Importante:** ajuste o arquivo `src/utils/env.ts` com o **IP da sua máquina** (substitua `localhost`) para que o app no celular consiga acessar o backend (ex.: `http://192.168.x.x:3000/api`).
 
-   ```bash
-   npx expo start
-   ```
+---
 
-In the output, you'll find options to open the app in a
+## Pré‑requisitos
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+1. Node.js e npm
+2. Expo Go (app) instalado no celular (Android/iOS)
+3. Celular e computador **na mesma rede Wi‑Fi**
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+---
 
-## Get a fresh project
+## Passo a passo
 
-When you're ready, run:
+### 1) Clonar o repositório
 
 ```bash
-npm run reset-project
+git clone https://github.com/danilo-humberto/apoio-diario-frontend.git
+cd apoio-diario-frontend
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+### 2) Instalar dependências
 
-## Learn more
+```bash
+npm install
+```
 
-To learn more about developing your project with Expo, look at the following resources:
+### 3) Configurar o endereço do backend (muito importante)
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+Abra o arquivo:
 
-## Join the community
+```
+src/utils/env.ts
+```
 
-Join our community of developers creating universal apps.
+Substitua a URL pelo **IP da sua máquina** na rede local (não use `localhost`). Exemplos:
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+```ts
+// Exemplo de como deve ficar
+export const API_URL = "http://192.168.0.10:3000/api";
+```
+
+Observações:
+
+* Use o IP IPv4 da sua máquina (ex.: `192.168.x.x` ou `10.0.x.x`).
+* Inclua a porta do backend, se houver (ex.: `:3000`).
+* Mantenha o sufixo `/api`, pois o back usa esse prefixo
+
+> Por que isso é necessário? O Expo carregando o app no celular usa a rede para buscar a API no seu computador — `localhost` no celular aponta para o próprio celular, não pro PC.
+
+### 4) Iniciar o app
+
+```bash
+npm start
+```
+
+O Metro bundler/Expo abrirá no terminal ou navegador e exibirá um **QR code**.
+
+### 5) Abrir no celular
+
+1. Abra o app **Expo Go** no celular.
+2. Escaneie o QR code que apareceu após `npm start`.
+3. O app será carregado no dispositivo e deverá se comunicar com o backend usando o `API_URL` que você configurou.
