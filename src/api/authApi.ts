@@ -72,3 +72,8 @@ export const getStoredTokens = async (): Promise<Tokens | null> => {
   if (!accessToken) return null;
   return { accessToken, refreshToken: refreshToken || undefined };
 };
+
+export const googleLoginRequest = async (googleToken: string): Promise<LoginResponse> => {
+  const response = await api.post("/auth/google", { googleToken });
+  return response.data as LoginResponse;
+};

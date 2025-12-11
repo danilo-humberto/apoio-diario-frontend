@@ -11,6 +11,7 @@ import {
   View,
 } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
+import { GoogleAuthButton } from "./GoogleAuthButton";
 
 const RegisterScreen = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -166,6 +167,11 @@ const RegisterScreen = () => {
               <Text>OU</Text>
               <View className="h-1 flex-1 bg-slate-200 rounded-full"></View>
             </View>
+
+            <View className="-mt-4">
+             <GoogleAuthButton />
+            </View>
+
             <View className="items-center -mt-4">
               <Text className="text-slate-500 text-lg">Já tem uma conta?</Text>
               <Link
