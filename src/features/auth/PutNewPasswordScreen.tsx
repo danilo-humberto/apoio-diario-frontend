@@ -61,7 +61,7 @@ const PutNewPasswordScreen = () => {
       { email, code, password },
       {
         onSuccess: () => {
-          router.push({ pathname: "/login" });
+          router.push({ pathname: "/(auth)/login" });
         },
         onError: (err: any) => {
           const msg = err?.response?.data?.message || err?.message;

@@ -21,7 +21,7 @@ const ForgetPasswordScreen = () => {
     forgotMutation.mutate(email, {
       onSuccess: () => {
         router.push({
-          pathname: "/confirmSentCode",
+          pathname: "/(auth)/confirmSentCode",
           params: { email },
         });
       },
@@ -103,7 +103,7 @@ const ForgetPasswordScreen = () => {
           <View className="items-center -mt-4">
             <Text className="text-slate-500 text-lg">Não tem uma conta?</Text>
             <Link
-              href={"/register"}
+              href={"/(auth)/register"}
               className="text-xl font-semibold underline active:scale-95"
             >
               Criar conta

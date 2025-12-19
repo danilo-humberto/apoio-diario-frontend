@@ -37,7 +37,7 @@ const ConfirmSentCodeScreen = () => {
         className="bg-primary h-16 rounded-2xl mt-4 w-full items-center justify-center active:scale-95"
         onPress={() =>
           router.push({
-            pathname: "/putRecoveryCode",
+            pathname: "/(auth)/putRecoveryCode",
             params: { email: params.email },
           })
         }
@@ -46,7 +46,7 @@ const ConfirmSentCodeScreen = () => {
       </Pressable>
 
       <Link
-        href={"/forgetPassword"}
+        href={"/(auth)/forgetPassword"}
         className="text-slate-500 text-xl mt-2 active:scale-95"
       >
         Tentar outro e-mail

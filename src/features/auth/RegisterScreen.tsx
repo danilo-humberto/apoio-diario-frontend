@@ -35,7 +35,7 @@ const RegisterScreen = () => {
       { email, password },
       {
         onSuccess: () => {
-          router.replace("/home");
+          router.replace("/(auth)/childProfile");
         },
         onError: (error) => {
           setEmail("");
@@ -169,7 +169,7 @@ const RegisterScreen = () => {
             <View className="items-center -mt-4">
               <Text className="text-slate-500 text-lg">Já tem uma conta?</Text>
               <Link
-                href={"/login"}
+                href={"/(auth)/login"}
                 className="text-xl font-semibold underline active:scale-95"
               >
                 Entrar

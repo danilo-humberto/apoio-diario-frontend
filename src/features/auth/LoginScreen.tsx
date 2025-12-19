@@ -1,6 +1,6 @@
 import { useLoginMutation } from "@/src/hooks/useAuthMutations";
 import { AntDesign, Feather } from "@expo/vector-icons";
-import { Link, router } from "expo-router";
+import { Link, useRouter } from "expo-router";
 import { useState } from "react";
 import {
   KeyboardAvoidingView,
@@ -14,6 +14,7 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 const LoginScreen = () => {
   const [showPassword, setShowPassword] = useState(false);
   const { top, bottom } = useSafeAreaInsets();
+  const router = useRouter();
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -29,9 +30,9 @@ const LoginScreen = () => {
       { email, password },
       {
         onSuccess: () => {
-          router.replace("/home");
+          router.replace("/(auth)/childProfile");
         },
-        onError: (error) => {
+        onError: () => {
           setEmail("");
           setPassword("");
         },
@@ -133,7 +134,7 @@ const LoginScreen = () => {
           <View className="items-center -mt-4">
             <Text className="text-slate-500 text-lg">Não tem uma conta?</Text>
             <Link
-              href={"/register"}
+              href={"/(auth)/register"}
               className="text-xl font-semibold underline active:scale-95"
             >
               Criar conta

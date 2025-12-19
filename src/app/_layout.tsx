@@ -12,12 +12,8 @@ export default function RootLayout() {
           initialRouteName="welcome"
         >
           <Stack.Screen name="welcome" />
-          <Stack.Screen name="login" />
-          <Stack.Screen name="register" />
-          <Stack.Screen name="forgetPassword" />
-          <Stack.Screen name="confirmSentCode" />
-          <Stack.Screen name="putRecoveryCode" />
-          <Stack.Screen name="putNewPassword" />
+          <Stack.Screen name="(auth)" />
+          <Stack.Screen name="(app)" />
         </Stack>
       </QueryProvider>
     </AuthProvider>

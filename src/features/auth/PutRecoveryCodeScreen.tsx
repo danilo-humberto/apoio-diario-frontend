@@ -32,7 +32,10 @@ const PutRecoveryCodeScreen = () => {
       { email, code },
       {
         onSuccess: () => {
-          router.push({ pathname: "/putNewPassword", params: { email, code } });
+          router.push({
+            pathname: "/(auth)/putNewPassword",
+            params: { email, code },
+          });
         },
         onError: (err: any) => {
           const msg = err?.response?.data?.message || err?.message;
