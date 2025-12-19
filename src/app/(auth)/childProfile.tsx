@@ -1,3 +1,3 @@
-import ChildProfile from "../../features/childProfile/ChildProfile";
+import ChildProfile from "@/src/features/childProfile/ChildProfile";
 
 export default ChildProfile;

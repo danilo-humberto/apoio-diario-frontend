@@ -21,23 +21,27 @@ const LoginScreen = () => {
 
   const loginMutation = useLoginMutation();
 
-  const handleSubmit = () => {
-    if (!email.trim() || !password) {
-      return;
-    }
+  // const handleSubmit = () => {
+  //   if (!email.trim() || !password) {
+  //     return;
+  //   }
 
-    loginMutation.mutate(
-      { email, password },
-      {
-        onSuccess: () => {
-          router.replace("/(auth)/childProfile");
-        },
-        onError: () => {
-          setEmail("");
-          setPassword("");
-        },
-      }
-    );
+  //   loginMutation.mutate(
+  //     { email, password },
+  //     {
+  //       onSuccess: () => {
+  //         router.replace("/(auth)/childProfile");
+  //       },
+  //       onError: () => {
+  //         setEmail("");
+  //         setPassword("");
+  //       },
+  //     }
+  //   );
+  // };
+
+  const handleSubmit = () => {
+    router.replace("/(auth)/childProfile");
   };
 
   const errorMessage =

@@ -1,3 +1,3 @@
-import RegisterScreen from "../features/auth/RegisterScreen";
+import RegisterScreen from "@/src/features/auth/RegisterScreen";
 
 export default RegisterScreen;

@@ -1,3 +1,3 @@
-import PutNewPasswordScreen from "../features/auth/PutNewPasswordScreen";
+import PutNewPasswordScreen from "@/src/features/auth/PutNewPasswordScreen";
 
 export default PutNewPasswordScreen;

@@ -15,7 +15,7 @@ const WelcomeScreen = () => {
       <Text className="text-black/80 text-lg">
         Rotina simples e organizada!
       </Text>
-      <Link href={"/login"} asChild>
+      <Link href={"/(auth)/login"} asChild>
         <Pressable className="text-center mt-10 bg-primary w-full py-6 rounded-2xl active:scale-95">
           <Text className="text-center text-lg text-white font-bold">
             Começar

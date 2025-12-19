@@ -8,7 +8,7 @@ export default function RootLayout() {
     <AuthProvider>
       <QueryProvider>
         <Stack
-          screenOptions={{ headerShown: false }}
+          screenOptions={{ headerShown: false, animation: "slide_from_right" }}
           initialRouteName="welcome"
         >
           <Stack.Screen name="welcome" />
