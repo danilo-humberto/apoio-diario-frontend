@@ -1,4 +1,5 @@
 import { Ionicons } from "@expo/vector-icons";
+import { Link } from "expo-router";
 import { Pressable, Text, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
@@ -26,11 +27,13 @@ const ChildProfile = () => {
             diária
           </Text>
 
-          <Pressable className="bg-primary min-w-full py-6 rounded-2xl active:scale-95">
-            <Text className="text-center text-lg font-bold text-white">
-              Criar Primeiro Perfil
-            </Text>
-          </Pressable>
+          <Link asChild href={"/(auth)/registerChild"}>
+            <Pressable className="bg-primary min-w-full py-6 rounded-2xl active:scale-95">
+              <Text className="text-center text-lg font-bold text-white">
+                Criar Primeiro Perfil
+              </Text>
+            </Pressable>
+          </Link>
         </View>
       )}
     </View>

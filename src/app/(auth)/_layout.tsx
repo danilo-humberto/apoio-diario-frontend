@@ -15,6 +15,7 @@ export default function AuthLayout() {
       <Stack.Screen name="putRecoveryCode" />
       <Stack.Screen name="putNewPassword" />
       <Stack.Screen name="childProfile" />
+      <Stack.Screen name="registerChild" />
     </Stack>
   );
 }
